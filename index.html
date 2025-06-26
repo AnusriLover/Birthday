@@ -21,7 +21,6 @@
             align-items: center;
             overflow: hidden;
             color: #f8e8e8;
-            perspective: 1000px;
         }
         
         .container {
@@ -42,73 +41,40 @@
             margin-bottom: 2rem;
             color: #ffd7d7;
             text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-            opacity: 0;
-            animation: fadeIn 1.5s forwards 0.5s;
+            animation: fadeIn 1.5s forwards;
         }
         
-        /* Envelope Container */
+        /* Envelope Container - Simplified */
         .envelope-container {
             position: relative;
-            width: 280px;
-            height: 180px;
+            width: 300px;
+            height: 200px;
             z-index: 20;
-            cursor: pointer;
-            transform-style: preserve-3d;
         }
         
-        /* Envelope */
-        .envelope {
+        /* Envelope Base */
+        .envelope-base {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
-            border-radius: 8px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        .envelope-flap {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             background: linear-gradient(45deg, #ff5252, #ff7b7b);
             border-radius: 8px;
-            transform-origin: top;
-            transition: transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 3;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            clip-path: polygon(0 0, 100% 0, 100% 50%, 50% 100%, 0 50%);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            z-index: 2;
         }
         
-        .envelope-flap::before {
-            content: '✉';
-            font-size: 50px;
-            color: rgba(255, 255, 255, 0.9);
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            position: absolute;
-            top: 30px;
-        }
-        
-        .envelope-base {
+        /* Envelope Flap */
+        .envelope-flap {
             position: absolute;
             width: 100%;
             height: 100%;
             background: linear-gradient(45deg, #ff4040, #ff6b6b);
             border-radius: 8px;
-            z-index: 2;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
-        }
-        
-        .envelope-container.open .envelope-flap {
-            transform: rotateX(180deg);
+            z-index: 3;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            clip-path: polygon(0 0, 100% 0, 100% 50%, 50% 100%, 0 50%);
+            transform-origin: top;
+            animation: openFlap 2s forwards 1s;
         }
         
         /* Letter */
@@ -123,16 +89,12 @@
             padding: 20px;
             display: flex;
             flex-direction: column;
-            transform: translateY(0);
-            transition: transform 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s;
             z-index: 1;
             overflow: hidden;
             border: 1px solid #f8d7b4;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .envelope-container.open .letter {
-            transform: translateY(-180px);
+            animation: riseLetter 2s forwards 1.5s;
+            opacity: 0;
         }
         
         .letter-content {
@@ -140,15 +102,11 @@
             height: 100%;
             overflow-y: auto;
             padding-right: 10px;
-            opacity: 0;
-            transition: opacity 1.2s ease 1.5s;
             color: #3c2f2f;
             font-size: 15px;
             line-height: 1.6;
-        }
-        
-        .envelope-container.open .letter-content {
-            opacity: 1;
+            animation: fadeInContent 1s forwards 2.5s;
+            opacity: 0;
         }
         
         .letter-content::-webkit-scrollbar {
@@ -180,32 +138,34 @@
             color: #5d4037;
         }
         
-        /* Decorative elements */
+        /* Decorative hearts */
         .heart {
             position: absolute;
             font-size: 24px;
             color: #ff6b6b;
-            opacity: 0;
             z-index: 5;
-            pointer-events: none;
-        }
-        
-        .envelope-container.open .heart {
             animation: floatHearts 8s linear forwards;
         }
         
-        .instructions {
-            position: absolute;
-            bottom: 30px;
-            width: 100%;
-            text-align: center;
-            font-size: 18px;
-            color: #ffd1dc;
-            opacity: 0.8;
-            animation: pulse 2s infinite;
+        /* Animations */
+        @keyframes openFlap {
+            0% { transform: rotateX(0); }
+            100% { transform: rotateX(180deg); }
         }
         
-        /* Animations */
+        @keyframes riseLetter {
+            0% { transform: translateY(0); opacity: 0; }
+            100% { transform: translateY(-180px); opacity: 1; }
+        }
+        
+        @keyframes fadeInContent {
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
         @keyframes floatHearts {
             0% {
                 opacity: 0;
@@ -222,15 +182,6 @@
                 opacity: 0;
                 transform: translateY(-100vh) rotate(360deg) scale(0.2);
             }
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
-        }
-        
-        @keyframes fadeIn {
-            to { opacity: 1; }
         }
         
         /* Blurred background elements */
@@ -267,7 +218,7 @@
             75% { transform: translate(20px, -20px); }
         }
         
-        /* Mobile full-screen adjustment */
+        /* Mobile adjustments */
         @media (max-width: 768px) {
             .title {
                 font-size: 2rem;
@@ -279,7 +230,7 @@
                 height: 160px;
             }
             
-            .envelope-container.open .letter {
+            .letter {
                 position: fixed;
                 top: 20px;
                 left: 20px;
@@ -290,7 +241,11 @@
                 max-height: calc(100vh - 40px);
                 z-index: 100;
                 padding: 15px;
-                transform: translateY(0);
+                animation: mobileRiseLetter 2s forwards 1.5s;
+            }
+            
+            @keyframes mobileRiseLetter {
+                to { opacity: 1; transform: translateY(0); }
             }
             
             .letter-content {
@@ -300,11 +255,6 @@
             .letter-content h2 {
                 font-size: 20px;
             }
-            
-            .instructions {
-                font-size: 16px;
-                bottom: 20px;
-            }
         }
     </style>
 </head>
@@ -312,27 +262,23 @@
     <div class="container">
         <h1 class="title">Happy Birthday Anusri</h1>
         
-        <div class="envelope-container" id="envelope-container">
-            <div class="envelope">
-                <div class="envelope-base"></div>
-                <div class="envelope-flap"></div>
-                <div class="letter">
-                    <div class="letter-content">
-                        <h2>Happy Birthday Anusri 🎉</h2>
-                        <p>Dearest Anusri,</p>
-                        <p>I think you don't know who am I but that's not matters for now. On this very special day, I extend my warmest birthday wishes to you. May this new year of life bring you endless moments of joy, growth, and remarkable accomplishments.</p>
-                        <p>You are truly a gem in this world, and I hope this day reflects the brilliance that you share with everyone around you.</p>
-                        <p>Beyond your exceptional qualities, I also extend my sincere regards and respect to your family — your parents, who must be as remarkable as you. I also want to acknowledge your naughty little brother, whose playful nature no doubt brings a smile to everyone around him, adding charm and light to your family.</p>
-                        <p>As we journey through time, I can’t help but reflect on how the universe works in mysterious ways. In 89,895,600 seconds — a fleeting moment in the grand scope of time — a new chapter will unfold. What this chapter holds, I cannot predict, but it is clear that time will reveal what lies ahead.</p>
-                        <p>I leave this message with you, not as a demand, but as an invitation to reflect, when the time feels right.</p>
-                        <p>May you continue to grow, excel, and be the best version of yourself.</p>
-                        <p class="signature">– Someone who deeply respects you and your family</p>
-                    </div>
+        <div class="envelope-container">
+            <div class="envelope-base"></div>
+            <div class="envelope-flap"></div>
+            <div class="letter">
+                <div class="letter-content">
+                    <h2>Happy Birthday Anusri 🎉</h2>
+                    <p>Dearest Anusri,</p>
+                    <p>I think you don't know who am I but that's not matters for now. On this very special day, I extend my warmest birthday wishes to you. May this new year of life bring you endless moments of joy, growth, and remarkable accomplishments.</p>
+                    <p>You are truly a gem in this world, and I hope this day reflects the brilliance that you share with everyone around you.</p>
+                    <p>Beyond your exceptional qualities, I also extend my sincere regards and respect to your family — your parents, who must be as remarkable as you. I also want to acknowledge your naughty little brother, whose playful nature no doubt brings a smile to everyone around him, adding charm and light to your family.</p>
+                    <p>As we journey through time, I can’t help but reflect on how the universe works in mysterious ways. In 89,895,600 seconds — a fleeting moment in the grand scope of time — a new chapter will unfold. What this chapter holds, I cannot predict, but it is clear that time will reveal what lies ahead.</p>
+                    <p>I leave this message with you, not as a demand, but as an invitation to reflect, when the time feels right.</p>
+                    <p>May you continue to grow, excel, and be the best version of yourself.</p>
+                    <p class="signature">– Someone who deeply respects you and your family</p>
                 </div>
             </div>
         </div>
-        
-        <div class="instructions">Click the envelope to open your letter</div>
     </div>
     
     <!-- Blurred background elements -->
@@ -346,9 +292,6 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const envelope = document.getElementById('envelope-container');
-            const bgMusic = document.getElementById('background-music');
-            
             // Create decorative hearts
             function createHearts() {
                 const container = document.querySelector('.container');
@@ -358,40 +301,31 @@
                     heart.innerHTML = '❤';
                     heart.style.left = ${Math.random() * 100}%;
                     heart.style.fontSize = ${20 + Math.random() * 25}px;
-                    heart.style.animationDelay = ${Math.random() * 3}s;
+                    heart.style.animationDelay = ${1 + Math.random() * 3}s;
                     container.appendChild(heart);
                 }
             }
             
-            // Start animation and music
-            function startExperience() {
-                envelope.classList.add('open');
+            // Play background music
+            function playMusic() {
+                const bgMusic = document.getElementById('background-music');
                 
-                // Play music
-                bgMusic.play().catch(e => {
-                    console.log("Audio play failed, will try again on interaction");
+                // Try to play immediately
+                bgMusic.play().catch(error => {
+                    console.log("Auto-play prevented, will play after interaction");
+                    
+                    // Play on user interaction
+                    document.addEventListener('click', function() {
+                        bgMusic.play();
+                    }, { once: true });
                 });
             }
             
-            // Add click event to envelope
-            envelope.addEventListener('click', function() {
-                if (!envelope.classList.contains('open')) {
-                    startExperience();
-                    createHearts();
-                    
-                    // Play music on user interaction
-                    bgMusic.play().catch(e => {
-                        console.log("Audio play failed:", e);
-                    });
-                }
-            });
-            
-            // Auto-open after 3 seconds if user hasn't clicked
+            // Start animations
             setTimeout(() => {
-                if (!envelope.classList.contains('open')) {
-                    envelope.click();
-                }
-            }, 3000);
+                createHearts();
+                playMusic();
+            }, 1000);
         });
     </script>
 </body>

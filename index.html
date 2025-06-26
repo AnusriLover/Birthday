@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Anusri</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
         }
         
         body {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Roboto', sans-serif;
             min-height: 100vh;
             background: linear-gradient(135deg, #0a0000, #200000, #500000);
             display: flex;
@@ -37,22 +37,20 @@
         }
         
         .title {
-            font-family: 'Dancing Script', cursive;
-            font-size: 3.5rem;
+            font-size: 2.5rem;
             text-align: center;
             margin-bottom: 2rem;
             color: #ffd7d7;
-            text-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
             opacity: 0;
-            transform: translateY(-20px);
-            animation: fadeInDown 1.5s forwards 0.5s;
+            animation: fadeIn 1.5s forwards 0.5s;
         }
         
         /* Envelope Container */
         .envelope-container {
             position: relative;
-            width: 300px;
-            height: 200px;
+            width: 280px;
+            height: 180px;
             z-index: 20;
             cursor: pointer;
             transform-style: preserve-3d;
@@ -64,24 +62,12 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
-            border-radius: 10px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
             display: flex;
             justify-content: center;
             align-items: center;
             transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        .envelope:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #ff5252, #ff7b7b);
-            border-radius: 10px;
-            z-index: 2;
         }
         
         .envelope-flap {
@@ -90,8 +76,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, #ff4040, #ff6b6b);
-            border-radius: 10px;
+            background: linear-gradient(45deg, #ff5252, #ff7b7b);
+            border-radius: 8px;
             transform-origin: top;
             transition: transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 3;
@@ -99,26 +85,30 @@
             justify-content: center;
             align-items: center;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            clip-path: polygon(0 0, 100% 0, 100% 50%, 50% 100%, 0 50%);
         }
         
-        .envelope-flap:before {
+        .envelope-flap::before {
             content: '✉';
-            font-size: 60px;
+            font-size: 50px;
             color: rgba(255, 255, 255, 0.9);
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            transition: all 0.5s;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            position: absolute;
+            top: 30px;
+        }
+        
+        .envelope-base {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #ff4040, #ff6b6b);
+            border-radius: 8px;
+            z-index: 2;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
         }
         
         .envelope-container.open .envelope-flap {
             transform: rotateX(180deg);
-        }
-        
-        .envelope-container.open .envelope-flap:before {
-            opacity: 0;
-        }
-        
-        .envelope-container.open .letter {
-            transform: translateY(-180px);
         }
         
         /* Letter */
@@ -127,11 +117,10 @@
             top: 20px;
             left: 20px;
             width: calc(100% - 40px);
-            height: 180px;
+            height: 140px;
             background: linear-gradient(to bottom, #fff5e6, #fffaf0);
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            padding: 25px;
+            border-radius: 5px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             transform: translateY(0);
@@ -139,16 +128,23 @@
             z-index: 1;
             overflow: hidden;
             border: 1px solid #f8d7b4;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .envelope-container.open .letter {
+            transform: translateY(-180px);
         }
         
         .letter-content {
             position: relative;
             height: 100%;
             overflow-y: auto;
-            padding-right: 15px;
+            padding-right: 10px;
             opacity: 0;
             transition: opacity 1.2s ease 1.5s;
             color: #3c2f2f;
+            font-size: 15px;
+            line-height: 1.6;
         }
         
         .envelope-container.open .letter-content {
@@ -156,38 +152,32 @@
         }
         
         .letter-content::-webkit-scrollbar {
-            width: 8px;
+            width: 6px;
         }
         
         .letter-content::-webkit-scrollbar-thumb {
             background: #ff9aa2;
-            border-radius: 4px;
+            border-radius: 3px;
         }
         
-        .letter-content h1 {
+        .letter-content h2 {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             color: #d32f2f;
-            font-size: 28px;
-            font-weight: 600;
-            font-family: 'Dancing Script', cursive;
-            letter-spacing: 1px;
+            font-size: 22px;
+            font-weight: 500;
         }
         
         .letter-content p {
-            margin-bottom: 15px;
-            line-height: 1.7;
-            font-size: 16px;
+            margin-bottom: 10px;
             text-align: justify;
         }
         
         .signature {
             text-align: right;
-            margin-top: 20px;
+            margin-top: 10px;
             font-style: italic;
-            font-weight: 500;
             color: #5d4037;
-            font-size: 18px;
         }
         
         /* Decorative elements */
@@ -204,33 +194,15 @@
             animation: floatHearts 8s linear forwards;
         }
         
-        .sparkle {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: #fff;
-            border-radius: 50%;
-            opacity: 0;
-            z-index: 4;
-            pointer-events: none;
-            box-shadow: 0 0 10px #ff9aa2;
-        }
-        
-        .envelope-container.open .sparkle {
-            animation: sparkleAnim 2s ease-out forwards;
-        }
-        
         .instructions {
             position: absolute;
             bottom: 30px;
             width: 100%;
             text-align: center;
-            font-size: 20px;
+            font-size: 18px;
             color: #ffd1dc;
             opacity: 0.8;
             animation: pulse 2s infinite;
-            font-family: 'Dancing Script', cursive;
-            letter-spacing: 1px;
         }
         
         /* Animations */
@@ -252,28 +224,13 @@
             }
         }
         
-        @keyframes sparkleAnim {
-            0% {
-                opacity: 0;
-                transform: translate(0, 0) scale(0);
-            }
-            50% {
-                opacity: 1;
-                transform: translate(var(--tx), var(--ty)) scale(2);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(var(--tx2), var(--ty2)) scale(0);
-            }
-        }
-        
         @keyframes pulse {
-            0%, 100% { opacity: 0.6; text-shadow: 0 0 5px rgba(255, 105, 180, 0.5); }
-            50% { opacity: 1; text-shadow: 0 0 15px rgba(255, 105, 180, 0.8); }
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
         }
         
-        @keyframes fadeInDown {
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes fadeIn {
+            to { opacity: 1; }
         }
         
         /* Blurred background elements */
@@ -303,15 +260,6 @@
             animation: float 20s infinite ease-in-out reverse;
         }
         
-        .circle-3 {
-            width: 250px;
-            height: 250px;
-            background: #ff5252;
-            top: 40%;
-            right: 20%;
-            animation: float 18s infinite ease-in-out;
-        }
-        
         @keyframes float {
             0%, 100% { transform: translate(0, 0); }
             25% { transform: translate(-20px, -20px); }
@@ -322,17 +270,16 @@
         /* Mobile full-screen adjustment */
         @media (max-width: 768px) {
             .title {
-                font-size: 2.5rem;
+                font-size: 2rem;
                 margin-bottom: 1.5rem;
             }
             
             .envelope-container {
-                width: 280px;
-                height: 180px;
+                width: 260px;
+                height: 160px;
             }
             
             .envelope-container.open .letter {
-                transform: translateY(0);
                 position: fixed;
                 top: 20px;
                 left: 20px;
@@ -342,19 +289,20 @@
                 height: auto;
                 max-height: calc(100vh - 40px);
                 z-index: 100;
-                padding: 20px;
+                padding: 15px;
+                transform: translateY(0);
             }
             
             .letter-content {
-                font-size: 15px;
+                font-size: 14px;
             }
             
-            .letter-content h1 {
-                font-size: 24px;
+            .letter-content h2 {
+                font-size: 20px;
             }
             
             .instructions {
-                font-size: 18px;
+                font-size: 16px;
                 bottom: 20px;
             }
         }
@@ -366,14 +314,16 @@
         
         <div class="envelope-container" id="envelope-container">
             <div class="envelope">
+                <div class="envelope-base"></div>
                 <div class="envelope-flap"></div>
                 <div class="letter">
                     <div class="letter-content">
-                        <h1>Happy Birthday!</h1>
+                        <h2>Happy Birthday Anusri 🎉</h2>
                         <p>Dearest Anusri,</p>
-                        <p>I think you don't know who am I but that's not matters for now. On this very special day, I extend my warmest birthday wishes to you. May this new year of life bring you endless moments of joy, growth, and remarkable accomplishments. You are truly a gem in this world, and I hope this day reflects the brilliance that you share with everyone around you.</p>
-                        <p>Beyond your exceptional qualities, I also extend my sincere regards and respect to your family — your parents, who must be as remarkable as you. I also want to acknowledge your naughty little brother, whose playful nature no doubt brings a smile to everyone around him, adding charm and light to your family. Family is the backbone of all, and from what I can see, you have been blessed with a truly beautiful one.</p>
-                        <p>As we journey through time, I can’t help but reflect on how the universe works in mysterious ways. In 89,895,600 seconds — a fleeting moment in the grand scope of time — a new chapter will unfold. What this chapter holds, I cannot predict, but it is clear that time will reveal what lies ahead. And perhaps, in that very moment, we will meet, as fate often has a way of aligning paths when the time is right.</p>
+                        <p>I think you don't know who am I but that's not matters for now. On this very special day, I extend my warmest birthday wishes to you. May this new year of life bring you endless moments of joy, growth, and remarkable accomplishments.</p>
+                        <p>You are truly a gem in this world, and I hope this day reflects the brilliance that you share with everyone around you.</p>
+                        <p>Beyond your exceptional qualities, I also extend my sincere regards and respect to your family — your parents, who must be as remarkable as you. I also want to acknowledge your naughty little brother, whose playful nature no doubt brings a smile to everyone around him, adding charm and light to your family.</p>
+                        <p>As we journey through time, I can’t help but reflect on how the universe works in mysterious ways. In 89,895,600 seconds — a fleeting moment in the grand scope of time — a new chapter will unfold. What this chapter holds, I cannot predict, but it is clear that time will reveal what lies ahead.</p>
                         <p>I leave this message with you, not as a demand, but as an invitation to reflect, when the time feels right.</p>
                         <p>May you continue to grow, excel, and be the best version of yourself.</p>
                         <p class="signature">– Someone who deeply respects you and your family</p>
@@ -382,17 +332,16 @@
             </div>
         </div>
         
-        <div class="instructions">Hey Anusri, Please Click The Envelope To Open Secret letter.</div>
+        <div class="instructions">Click the envelope to open your letter</div>
     </div>
     
     <!-- Blurred background elements -->
     <div class="blur-circle circle-1"></div>
     <div class="blur-circle circle-2"></div>
-    <div class="blur-circle circle-3"></div>
     
     <audio id="background-music" loop>
-        <!-- Replace with your actual song file -->
-        <source src="song.mp3" type="audio/mpeg">
+        <!-- Place your song.mp3 file in the same directory -->
+        <source src="Song.mp3" type="audio/mpeg">
     </audio>
     
     <script>
@@ -403,41 +352,14 @@
             // Create decorative hearts
             function createHearts() {
                 const container = document.querySelector('.container');
-                for (let i = 0; i < 30; i++) {
+                for (let i = 0; i < 20; i++) {
                     const heart = document.createElement('div');
                     heart.className = 'heart';
                     heart.innerHTML = '❤';
                     heart.style.left = ${Math.random() * 100}%;
-                    heart.style.fontSize = ${20 + Math.random() * 30}px;
+                    heart.style.fontSize = ${20 + Math.random() * 25}px;
                     heart.style.animationDelay = ${Math.random() * 3}s;
                     container.appendChild(heart);
-                }
-            }
-            
-            // Create sparkles
-            function createSparkles() {
-                const envelopeEl = document.querySelector('.envelope');
-                for (let i = 0; i < 15; i++) {
-                    const sparkle = document.createElement('div');
-                    sparkle.className = 'sparkle';
-                    
-                    // Position around the envelope
-                    const angle = (i / 15) * Math.PI * 2;
-                    const radius = 180;
-                    const tx = Math.cos(angle) * radius;
-                    const ty = Math.sin(angle) * radius;
-                    const tx2 = Math.cos(angle) * radius * 2;
-                    const ty2 = Math.sin(angle) * radius * 2;
-                    
-                    sparkle.style.setProperty('--tx', ${tx}px);
-                    sparkle.style.setProperty('--ty', ${ty}px);
-                    sparkle.style.setProperty('--tx2', ${tx2}px);
-                    sparkle.style.setProperty('--ty2', ${ty2}px);
-                    sparkle.style.animationDelay = ${0.5 + i * 0.1}s;
-                    sparkle.style.left = '50%';
-                    sparkle.style.top = '50%';
-                    
-                    envelopeEl.appendChild(sparkle);
                 }
             }
             
@@ -445,21 +367,10 @@
             function startExperience() {
                 envelope.classList.add('open');
                 
-                // Try to play music
-                const playMusic = () => {
-                    bgMusic.play().catch(e => {
-                        console.log("Audio play failed:", e);
-                    });
-                };
-                
-                // Play music on user interaction
-                document.body.addEventListener('click', function initAudio() {
-                    playMusic();
-                    document.body.removeEventListener('click', initAudio);
-                }, { once: true });
-                
-                // Also try to play immediately (may work in some browsers)
-                playMusic();
+                // Play music
+                bgMusic.play().catch(e => {
+                    console.log("Audio play failed, will try again on interaction");
+                });
             }
             
             // Add click event to envelope
@@ -467,7 +378,11 @@
                 if (!envelope.classList.contains('open')) {
                     startExperience();
                     createHearts();
-                    createSparkles();
+                    
+                    // Play music on user interaction
+                    bgMusic.play().catch(e => {
+                        console.log("Audio play failed:", e);
+                    });
                 }
             });
             

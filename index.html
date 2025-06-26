@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Anusri</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -16,12 +15,13 @@
         body {
             font-family: 'Playfair Display', serif;
             min-height: 100vh;
-            background: linear-gradient(135deg, #1a0a2e, #2d0a50, #4a0a7a);
+            background: linear-gradient(135deg, #0a0000, #200000, #500000);
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            color: #3c2f2f;
+            color: #f8e8e8;
+            perspective: 1000px;
         }
         
         .container {
@@ -30,38 +30,46 @@
             max-width: 800px;
             height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            perspective: 1000px;
+            z-index: 10;
         }
         
-        /* Envelope */
+        .title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #ffd7d7;
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInDown 1.5s forwards 0.5s;
+        }
+        
+        /* Envelope Container */
         .envelope-container {
             position: relative;
             width: 300px;
             height: 200px;
-            z-index: 10;
+            z-index: 20;
             cursor: pointer;
-            transform: scale(1);
-            transition: transform 0.5s;
+            transform-style: preserve-3d;
         }
         
-        .envelope-container:hover {
-            transform: scale(1.05);
-        }
-        
+        /* Envelope */
         .envelope {
             position: absolute;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, #ff9aa2, #ffb7b2);
-            border-radius: 8px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
             display: flex;
             justify-content: center;
             align-items: center;
-            transform-style: preserve-3d;
-            transition: all 0.5s;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         .envelope:before {
@@ -71,8 +79,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, #ff9aa2, #ffb7b2);
-            border-radius: 8px;
+            background: linear-gradient(45deg, #ff5252, #ff7b7b);
+            border-radius: 10px;
             z-index: 2;
         }
         
@@ -82,27 +90,31 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, #ff8090, #ff9aa2);
-            border-radius: 8px;
+            background: linear-gradient(45deg, #ff4040, #ff6b6b);
+            border-radius: 10px;
             transform-origin: top;
-            transition: transform 1s ease;
+            transition: transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 3;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
         
         .envelope-flap:before {
             content: '✉';
-            font-size: 50px;
-            opacity: 0.8;
+            font-size: 60px;
             color: rgba(255, 255, 255, 0.9);
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s;
         }
         
         .envelope-container.open .envelope-flap {
             transform: rotateX(180deg);
+        }
+        
+        .envelope-container.open .envelope-flap:before {
+            opacity: 0;
         }
         
         .envelope-container.open .letter {
@@ -117,13 +129,13 @@
             width: calc(100% - 40px);
             height: 180px;
             background: linear-gradient(to bottom, #fff5e6, #fffaf0);
-            border-radius: 5px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 25px;
             display: flex;
             flex-direction: column;
             transform: translateY(0);
-            transition: transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s;
+            transition: transform 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s;
             z-index: 1;
             overflow: hidden;
             border: 1px solid #f8d7b4;
@@ -133,9 +145,10 @@
             position: relative;
             height: 100%;
             overflow-y: auto;
-            padding-right: 10px;
+            padding-right: 15px;
             opacity: 0;
-            transition: opacity 1s ease 1.3s;
+            transition: opacity 1.2s ease 1.5s;
+            color: #3c2f2f;
         }
         
         .envelope-container.open .letter-content {
@@ -143,43 +156,44 @@
         }
         
         .letter-content::-webkit-scrollbar {
-            width: 6px;
+            width: 8px;
         }
         
         .letter-content::-webkit-scrollbar-thumb {
-            background: #ffb7b2;
-            border-radius: 3px;
+            background: #ff9aa2;
+            border-radius: 4px;
         }
         
         .letter-content h1 {
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             color: #d32f2f;
-            font-size: 26px;
+            font-size: 28px;
             font-weight: 600;
+            font-family: 'Dancing Script', cursive;
             letter-spacing: 1px;
         }
         
         .letter-content p {
-            margin-bottom: 12px;
-            line-height: 1.6;
-            font-size: 15px;
+            margin-bottom: 15px;
+            line-height: 1.7;
+            font-size: 16px;
             text-align: justify;
         }
         
         .signature {
             text-align: right;
-            margin-top: 15px;
+            margin-top: 20px;
             font-style: italic;
             font-weight: 500;
             color: #5d4037;
-            font-size: 16px;
+            font-size: 18px;
         }
         
         /* Decorative elements */
         .heart {
             position: absolute;
-            font-size: 20px;
+            font-size: 24px;
             color: #ff6b6b;
             opacity: 0;
             z-index: 5;
@@ -190,40 +204,36 @@
             animation: floatHearts 8s linear forwards;
         }
         
-        .birthday-text {
-            position: absolute;
-            bottom: 20px;
-            width: 100%;
-            text-align: center;
-            font-size: 22px;
-            color: #ffd1dc;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s ease 1.8s;
-            text-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
-        }
-        
-        .envelope-container.open .birthday-text {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
         .sparkle {
             position: absolute;
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
             background: #fff;
             border-radius: 50%;
             opacity: 0;
             z-index: 4;
             pointer-events: none;
+            box-shadow: 0 0 10px #ff9aa2;
         }
         
         .envelope-container.open .sparkle {
             animation: sparkleAnim 2s ease-out forwards;
         }
         
-        /* Animation */
+        .instructions {
+            position: absolute;
+            bottom: 30px;
+            width: 100%;
+            text-align: center;
+            font-size: 20px;
+            color: #ffd1dc;
+            opacity: 0.8;
+            animation: pulse 2s infinite;
+            font-family: 'Dancing Script', cursive;
+            letter-spacing: 1px;
+        }
+        
+        /* Animations */
         @keyframes floatHearts {
             0% {
                 opacity: 0;
@@ -231,7 +241,7 @@
             }
             10% {
                 opacity: 1;
-                transform: translateY(-20px) rotate(10deg) scale(1);
+                transform: translateY(-20px) rotate(10deg) scale(1.2);
             }
             90% {
                 opacity: 0.8;
@@ -249,7 +259,7 @@
             }
             50% {
                 opacity: 1;
-                transform: translate(var(--tx), var(--ty)) scale(1.5);
+                transform: translate(var(--tx), var(--ty)) scale(2);
             }
             100% {
                 opacity: 0;
@@ -257,16 +267,68 @@
             }
         }
         
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; text-shadow: 0 0 5px rgba(255, 105, 180, 0.5); }
+            50% { opacity: 1; text-shadow: 0 0 15px rgba(255, 105, 180, 0.8); }
+        }
+        
+        @keyframes fadeInDown {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Blurred background elements */
+        .blur-circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.3;
+            z-index: 1;
+        }
+        
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            background: #ff0000;
+            top: 10%;
+            left: 10%;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        .circle-2 {
+            width: 400px;
+            height: 400px;
+            background: #8a0000;
+            bottom: 10%;
+            right: 10%;
+            animation: float 20s infinite ease-in-out reverse;
+        }
+        
+        .circle-3 {
+            width: 250px;
+            height: 250px;
+            background: #ff5252;
+            top: 40%;
+            right: 20%;
+            animation: float 18s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(-20px, -20px); }
+            50% { transform: translate(0, -40px); }
+            75% { transform: translate(20px, -20px); }
+        }
+        
         /* Mobile full-screen adjustment */
         @media (max-width: 768px) {
-            .container {
-                height: 100vh;
-                padding: 20px;
+            .title {
+                font-size: 2.5rem;
+                margin-bottom: 1.5rem;
             }
             
             .envelope-container {
-                width: 100%;
-                max-width: 300px;
+                width: 280px;
+                height: 180px;
             }
             
             .envelope-container.open .letter {
@@ -280,44 +342,34 @@
                 height: auto;
                 max-height: calc(100vh - 40px);
                 z-index: 100;
+                padding: 20px;
             }
             
             .letter-content {
-                font-size: 14px;
+                font-size: 15px;
             }
             
             .letter-content h1 {
-                font-size: 22px;
+                font-size: 24px;
             }
-        }
-        
-        .instructions {
-            position: absolute;
-            top: 20px;
-            width: 100%;
-            text-align: center;
-            color: #ffd1dc;
-            font-size: 18px;
-            opacity: 0.8;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
+            
+            .instructions {
+                font-size: 18px;
+                bottom: 20px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="instructions">Click the envelope to open</div>
+        <h1 class="title">Happy Birthday Anusri</h1>
         
         <div class="envelope-container" id="envelope-container">
             <div class="envelope">
                 <div class="envelope-flap"></div>
                 <div class="letter">
                     <div class="letter-content">
-                        <h1>Happy Birthday Anusri!</h1>
+                        <h1>Happy Birthday!</h1>
                         <p>Dearest Anusri,</p>
                         <p>I think you don't know who am I but that's not matters for now. On this very special day, I extend my warmest birthday wishes to you. May this new year of life bring you endless moments of joy, growth, and remarkable accomplishments. You are truly a gem in this world, and I hope this day reflects the brilliance that you share with everyone around you.</p>
                         <p>Beyond your exceptional qualities, I also extend my sincere regards and respect to your family — your parents, who must be as remarkable as you. I also want to acknowledge your naughty little brother, whose playful nature no doubt brings a smile to everyone around him, adding charm and light to your family. Family is the backbone of all, and from what I can see, you have been blessed with a truly beautiful one.</p>
@@ -330,10 +382,16 @@
             </div>
         </div>
         
-        <div class="birthday-text">Made with 💖 for your special day</div>
+        <div class="instructions">Hey Anusri, Please Click The Envelope To Open Secret letter.</div>
     </div>
     
+    <!-- Blurred background elements -->
+    <div class="blur-circle circle-1"></div>
+    <div class="blur-circle circle-2"></div>
+    <div class="blur-circle circle-3"></div>
+    
     <audio id="background-music" loop>
+        <!-- Replace with your actual song file -->
         <source src="song.mp3" type="audio/mpeg">
     </audio>
     
@@ -345,12 +403,12 @@
             // Create decorative hearts
             function createHearts() {
                 const container = document.querySelector('.container');
-                for (let i = 0; i < 25; i++) {
+                for (let i = 0; i < 30; i++) {
                     const heart = document.createElement('div');
                     heart.className = 'heart';
                     heart.innerHTML = '❤';
                     heart.style.left = ${Math.random() * 100}%;
-                    heart.style.fontSize = ${15 + Math.random() * 25}px;
+                    heart.style.fontSize = ${20 + Math.random() * 30}px;
                     heart.style.animationDelay = ${Math.random() * 3}s;
                     container.appendChild(heart);
                 }
@@ -359,12 +417,12 @@
             // Create sparkles
             function createSparkles() {
                 const envelopeEl = document.querySelector('.envelope');
-                for (let i = 0; i < 12; i++) {
+                for (let i = 0; i < 15; i++) {
                     const sparkle = document.createElement('div');
                     sparkle.className = 'sparkle';
                     
                     // Position around the envelope
-                    const angle = (i / 12) * Math.PI * 2;
+                    const angle = (i / 15) * Math.PI * 2;
                     const radius = 180;
                     const tx = Math.cos(angle) * radius;
                     const ty = Math.sin(angle) * radius;
@@ -390,7 +448,7 @@
                 // Try to play music
                 const playMusic = () => {
                     bgMusic.play().catch(e => {
-                        console.log("Audio play failed, waiting for interaction:", e);
+                        console.log("Audio play failed:", e);
                     });
                 };
                 
@@ -413,12 +471,12 @@
                 }
             });
             
-            // Auto-open after 5 seconds if user hasn't clicked
+            // Auto-open after 3 seconds if user hasn't clicked
             setTimeout(() => {
                 if (!envelope.classList.contains('open')) {
                     envelope.click();
                 }
-            }, 5000);
+            }, 3000);
         });
     </script>
 </body>

@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Anusri</title>
-    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=National+Park&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,160 +13,166 @@
         }
         
         body {
-            font-family: 'Varela Round', sans-serif;
+            font-family: 'National Park', sans-serif;
             overflow: hidden;
             height: 100vh;
-            background: linear-gradient(to bottom, #ffcce6, #b3e0ff);
-            position: relative;
+            background: linear-gradient(to bottom, #0c1445, #1a237e, #4a148c);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
         }
         
         .container {
             position: relative;
             width: 100%;
-            height: 100vh;
-            overflow: hidden;
+            height: 100%;
+            max-width: 800px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         
-        /* Sky and clouds */
+        /* Night Sky */
         .sky {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 40%;
-            background: linear-gradient(to bottom, #ffcce6, #b3e0ff);
+            height: 50%;
+            background: linear-gradient(to bottom, #0c1445, #1a237e);
             z-index: 1;
+            overflow: hidden;
         }
         
-        .cloud {
+        .moon {
             position: absolute;
-            background: rgba(255, 255, 255, 0.9);
+            top: 20%;
+            right: 15%;
+            width: 80px;
+            height: 80px;
+            background: #f5f5f5;
             border-radius: 50%;
-            opacity: 0.8;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.8);
         }
         
-        /* Garden background */
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 4s infinite;
+        }
+        
+        /* Garden */
         .garden {
             position: absolute;
             bottom: 0;
             width: 100%;
-            height: 60%;
-            background: linear-gradient(to top, #2a7f2a, #3da33d);
+            height: 50%;
+            background: linear-gradient(to top, #1b5e20, #2e7d32);
             z-index: 2;
-            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
         }
         
-        /* Flowers */
-        .flower {
-            position: absolute;
-            z-index: 3;
-        }
-        
-        .flower .petals {
-            position: relative;
-        }
-        
-        .flower .center {
-            position: absolute;
-            background: #FFD700;
-            border-radius: 50%;
-            z-index: 4;
-        }
-        
-        .flower .stem {
-            position: absolute;
-            background: green;
-            z-index: 2;
-        }
-        
-        .flower .leaf {
-            position: absolute;
-            background: green;
-            border-radius: 50%;
-            z-index: 3;
-        }
-        
-        /* Rose animation */
+        /* Rose Container */
         .rose-container {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            bottom: 40px;
             z-index: 10;
-            transition: transform 10s ease-in-out;
+            transform-origin: bottom center;
             animation: float 6s infinite ease-in-out;
         }
         
+        /* Detailed Rose */
         .rose {
-            width: 120px;
-            height: 120px;
             position: relative;
-            transform-origin: center;
+            width: 120px;
+            height: 200px;
         }
         
-        .petal {
+        .stem {
             position: absolute;
-            width: 40px;
-            height: 60px;
-            background: #000;
-            border-radius: 50% 50% 0 50%;
-            transform-origin: bottom center;
-        }
-        
-        .petal:nth-child(1) { transform: rotate(0deg); }
-        .petal:nth-child(2) { transform: rotate(45deg); }
-        .petal:nth-child(3) { transform: rotate(90deg); }
-        .petal:nth-child(4) { transform: rotate(135deg); }
-        .petal:nth-child(5) { transform: rotate(180deg); }
-        .petal:nth-child(6) { transform: rotate(225deg); }
-        .petal:nth-child(7) { transform: rotate(270deg); }
-        .petal:nth-child(8) { transform: rotate(315deg); }
-        
-        .rose-center {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 30px;
-            height: 30px;
-            background: #4a752b;
-            border-radius: 50%;
-            z-index: 2;
-        }
-        
-        .stem-green {
-            position: absolute;
-            top: 60px;
+            bottom: 0;
             left: 50%;
             transform: translateX(-50%);
             width: 8px;
-            height: 120px;
-            background: #2a7f2a;
+            height: 180px;
+            background: linear-gradient(to right, #2e7d32, #1b5e20);
+            border-radius: 4px;
             z-index: 1;
         }
         
         .leaf {
             position: absolute;
-            width: 30px;
-            height: 20px;
-            background: #2a7f2a;
-            border-radius: 50%;
-            z-index: 0;
+            width: 25px;
+            height: 35px;
+            background: #2e7d32;
+            border-radius: 50% 0 50% 50%;
+            z-index: 2;
         }
         
-        .leaf-1 { top: 90px; left: 25px; transform: rotate(-30deg); }
-        .leaf-2 { top: 110px; left: 55px; transform: rotate(45deg); }
+        .leaf-1 {
+            bottom: 70px;
+            left: 5px;
+            transform: rotate(-30deg);
+        }
         
-        /* Flying petal */
-        .flying-petal {
+        .leaf-2 {
+            bottom: 120px;
+            right: 5px;
+            transform: rotate(30deg) scaleX(-1);
+        }
+        
+        .bud {
             position: absolute;
-            width: 30px;
-            height: 40px;
-            background: #000;
-            border-radius: 50% 50% 0 50%;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 80px;
+            z-index: 3;
+        }
+        
+        .petal {
+            position: absolute;
+            background: linear-gradient(to bottom, #000, #333);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            z-index: 4;
+        }
+        
+        .petal-1 { width: 60px; height: 40px; top: 20px; left: 10px; transform: rotate(10deg); }
+        .petal-2 { width: 55px; height: 38px; top: 15px; left: 20px; transform: rotate(30deg); }
+        .petal-3 { width: 50px; height: 36px; top: 10px; left: 25px; transform: rotate(50deg); }
+        .petal-4 { width: 45px; height: 34px; top: 5px; left: 30px; transform: rotate(70deg); }
+        .petal-5 { width: 40px; height: 32px; top: 0px; left: 35px; transform: rotate(90deg); }
+        .petal-6 { width: 45px; height: 34px; top: 5px; left: 20px; transform: rotate(110deg); }
+        
+        .rose-center {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: #5d4037;
+            border-radius: 50%;
+            z-index: 5;
+        }
+        
+        /* Focused Petal */
+        .focused-petal {
+            position: absolute;
+            width: 40px;
+            height: 30px;
+            background: linear-gradient(to bottom, #000, #333);
+            border-radius: 50%;
             z-index: 20;
             opacity: 0;
             transform-origin: center;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
         }
         
         /* Envelope */
@@ -176,81 +181,75 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0);
-            width: 300px;
-            height: 200px;
-            background: #f8f0e5;
-            border: 2px solid #e0c9a6;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 400px;
+            height: 70vh;
             z-index: 30;
             opacity: 0;
-            border-radius: 10px;
-            overflow: hidden;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
         }
         
-        .envelope-top {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .envelope-paper {
+            position: relative;
             width: 100%;
-            height: 50%;
-            background: #f9e4c8;
-            clip-path: polygon(0 0, 100% 0, 50% 100%);
-            z-index: 2;
-            transform-origin: top;
+            height: 100%;
+            background: #f8f0d7;
+            border-radius: 5px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5),
+                        inset 0 0 20px rgba(139, 69, 19, 0.2);
+            padding: 30px 20px;
+            overflow: hidden;
+            border: 1px solid #d4a86a;
         }
         
         .letter-content {
-            padding: 30px 20px;
-            font-size: 14px;
-            line-height: 1.6;
-            color: #333;
-            background: #fff;
+            position: relative;
             height: 100%;
             overflow-y: auto;
-            z-index: 1;
-            position: relative;
+            color: #3c2f2f;
+            font-size: 16px;
+            line-height: 1.7;
+            text-align: justify;
+            padding: 20px;
+            background: linear-gradient(to bottom, rgba(248, 240, 215, 0.8), rgba(248, 240, 215, 0.9));
+            box-shadow: inset 0 0 10px rgba(139, 69, 19, 0.1);
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 1s ease 1s;
+            transform: translateY(30px);
+            transition: all 1.5s ease 1.5s;
         }
         
         .letter-content h1 {
             text-align: center;
-            margin-bottom: 20px;
-            color: #d32f2f;
-            font-size: 24px;
+            margin-bottom: 25px;
+            color: #8b4513;
+            font-size: 28px;
+            font-weight: 400;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
         
         .letter-content p {
-            margin-bottom: 15px;
-            text-align: justify;
+            margin-bottom: 20px;
         }
         
         .letter-content .signature {
             text-align: right;
-            margin-top: 20px;
+            margin-top: 30px;
             font-style: italic;
-            font-weight: bold;
+            font-size: 18px;
+            color: #5d4037;
         }
         
-        /* Birthday decorations */
-        .decoration {
+        .birthday-decoration {
             position: absolute;
-            z-index: 5;
-        }
-        
-        .balloon {
-            position: absolute;
-            border-radius: 50%;
+            top: 10px;
+            width: 100%;
+            text-align: center;
+            font-size: 24px;
+            color: #e91e63;
             opacity: 0.8;
-        }
-        
-        .balloon-string {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.7);
-            width: 2px;
         }
         
         .confetti {
@@ -258,361 +257,220 @@
             width: 10px;
             height: 10px;
             opacity: 0;
+            z-index: 40;
         }
         
         /* Animations */
         @keyframes float {
-            0%, 100% { transform: translate(-50%, -50%) translateY(0); }
-            50% { transform: translate(-50%, -50%) translateY(-20px); }
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(2deg); }
+            50% { transform: translateY(0) rotate(0deg); }
+            75% { transform: translateY(-8px) rotate(-2deg); }
         }
         
-        @keyframes wind {
-            0%, 100% { transform: rotate(0deg); }
-            50% { transform: rotate(5deg); }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
         }
         
-        @keyframes sway {
-            0%, 100% { transform: translateX(0); }
-            50% { transform: translateX(10px); }
+        @keyframes petal-float {
+            0% { transform: translate(var(--startX), var(--startY)) rotate(0deg) scale(1); opacity: 1; }
+            70% { opacity: 1; }
+            100% { transform: translate(var(--endX), var(--endY)) rotate(360deg) scale(0.8); opacity: 0; }
         }
         
-        @keyframes cloudMove {
-            from { transform: translateX(-100%); }
-            to { transform: translateX(100vw); }
+        @keyframes petal-transform {
+            0% { transform: translate(var(--endX), var(--endY)) rotate(360deg) scale(0.8); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+        
+        @keyframes drop {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
         }
         
         @keyframes fadeIn {
             to { opacity: 1; }
         }
         
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
-        .music-player {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            z-index: 100;
-            color: white;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            animation: pulse 2s infinite;
-        }
-        
-        .music-player i {
-            font-size: 24px;
-        }
-        
-        .birthday-text {
-            position: absolute;
-            top: 20px;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            font-size: 36px;
-            color: #fff;
-            text-shadow: 0 0 10px #ff0077, 0 0 20px #ff0077, 0 0 30px #ff0077;
-            z-index: 25;
-            opacity: 0;
-            animation: fadeIn 2s forwards 3s;
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            .letter-content {
+                font-size: 14px;
+                padding: 15px;
+            }
+            
+            .letter-content h1 {
+                font-size: 24px;
+            }
+            
+            .rose {
+                transform: scale(0.9);
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="sky" id="sky"></div>
-        <div class="garden" id="garden"></div>
-        
-        <div class="birthday-text">Happy Birthday Anusri!</div>
-        
-        <!-- Rose Animation -->
-        <div class="rose-container" id="rose-container">
-            <div class="rose">
-                <div class="petal"></div>
-                <div class="petal"></div>
-                <div class="petal"></div>
-                <div class="petal"></div>
-                <div class="petal"></div>
-                <div class="petal"></div>
-                <div class="petal"></div>
-                <div class="petal"></div>
-                <div class="rose-center"></div>
-            </div>
-            <div class="stem-green"></div>
-            <div class="leaf leaf-1"></div>
-            <div class="leaf leaf-2"></div>
+        <!-- Night Sky -->
+        <div class="sky">
+            <div class="moon"></div>
+            <!-- Stars will be generated by JS -->
         </div>
         
-        <div class="flying-petal" id="flying-petal"></div>
+        <!-- Garden -->
+        <div class="garden">
+            <!-- Detailed Rose -->
+            <div class="rose-container" id="rose-container">
+                <div class="rose">
+                    <div class="stem"></div>
+                    <div class="leaf leaf-1"></div>
+                    <div class="leaf leaf-2"></div>
+                    <div class="bud">
+                        <div class="petal petal-1"></div>
+                        <div class="petal petal-2"></div>
+                        <div class="petal petal-3"></div>
+                        <div class="petal petal-4"></div>
+                        <div class="petal petal-5"></div>
+                        <div class="petal petal-6"></div>
+                        <div class="rose-center"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
         
+        <!-- Floating Petal -->
+        <div class="focused-petal" id="focused-petal"></div>
+        
+        <!-- Envelope with Letter -->
         <div class="envelope" id="envelope">
-            <div class="envelope-top"></div>
-            <div class="letter-content" id="letter-content">
-                <h1>Happy Birthday Anusri!</h1>
-                <p>Dearest Anusri,</p>
-                <p>I think you don't know who am I but that's not matters for now. On this very special day, I extend my warmest birthday wishes to you. May this new year of life bring you endless moments of joy, growth, and remarkable accomplishments. You are truly a gem in this world, and I hope this day reflects the brilliance that you share with everyone around you.</p>
-                <p>Beyond your exceptional qualities, I also extend my sincere regards and respect to your family — your parents, who must be as remarkable as you. I also want to acknowledge your naughty little brother, whose playful nature no doubt brings a smile to everyone around him, adding charm and light to your family. Family is the backbone of all, and from what I can see, you have been blessed with a truly beautiful one.</p>
-                <p>As we journey through time, I can’t help but reflect on how the universe works in mysterious ways. In 89,895,600 seconds — a fleeting moment in the grand scope of time — a new chapter will unfold. What this chapter holds, I cannot predict, but it is clear that time will reveal what lies ahead. And perhaps, in that very moment, we will meet, as fate often has a way of aligning paths when the time is right.</p>
-                <p>I leave this message with you, not as a demand, but as an invitation to reflect, when the time feels right.</p>
-                <p>May you continue to grow, excel, and be the best version of yourself.</p>
-                <p class="signature">– Someone who deeply respects you and your family</p>
+            <div class="envelope-paper">
+                <div class="birthday-decoration">🎂 Happy Birthday Anusri! 🎉</div>
+                <div class="letter-content" id="letter-content">
+                    <h1>Happy Birthday Anusri!</h1>
+                    <p>Dearest Anusri,</p>
+                    <p>I think you don't know who am I but that's not matters for now. On this very special day, I extend my warmest birthday wishes to you. May this new year of life bring you endless moments of joy, growth, and remarkable accomplishments. You are truly a gem in this world, and I hope this day reflects the brilliance that you share with everyone around you.</p>
+                    <p>Beyond your exceptional qualities, I also extend my sincere regards and respect to your family — your parents, who must be as remarkable as you. I also want to acknowledge your naughty little brother, whose playful nature no doubt brings a smile to everyone around him, adding charm and light to your family. Family is the backbone of all, and from what I can see, you have been blessed with a truly beautiful one.</p>
+                    <p>As we journey through time, I can’t help but reflect on how the universe works in mysterious ways. In 89,895,600 seconds — a fleeting moment in the grand scope of time — a new chapter will unfold. What this chapter holds, I cannot predict, but it is clear that time will reveal what lies ahead. And perhaps, in that very moment, we will meet, as fate often has a way of aligning paths when the time is right.</p>
+                    <p>I leave this message with you, not as a demand, but as an invitation to reflect, when the time feels right.</p>
+                    <p>May you continue to grow, excel, and be the best version of yourself.</p>
+                    <p class="signature">– Someone who deeply respects you and your family</p>
+                </div>
             </div>
         </div>
-        
-        <div class="music-player" id="music-player">
-            <i class="fas fa-music"></i>
-        </div>
-        
-        <audio id="background-music" loop>
-            <source src="https://drive.google.com/uc?export=download&id=1W9wPf0v61LjDy07UJGwUxLrEGAkuIZit" type="audio/mpeg">
-        </audio>
     </div>
-
+    
+    <audio id="background-music" autoplay loop>
+        <source src="https://drive.google.com/uc?export=download&id=1W9wPf0v61LjDy07UJGwUxLrEGAkuIZit" type="audio/mpeg">
+    </audio>
+    
     <script>
-        // Create garden elements
-        function createGarden() {
-            const garden = document.getElementById('garden');
-            const sky = document.getElementById('sky');
+        // Create stars
+        function createStars() {
+            const sky = document.querySelector('.sky');
+            const starCount = 100;
             
-            // Create clouds
-            for (let i = 0; i < 8; i++) {
-                const cloud = document.createElement('div');
-                cloud.className = 'cloud';
-                const size = 60 + Math.random() * 100;
-                cloud.style.width = `${size}px`;
-                cloud.style.height = `${size / 2}px`;
-                cloud.style.top = `${20 + Math.random() * 20}%`;
-                cloud.style.left = `${Math.random() * 100}%`;
-                cloud.style.animation = `cloudMove ${100 + Math.random() * 100}s linear infinite`;
-                cloud.style.animationDelay = `${Math.random() * 20}s`;
-                sky.appendChild(cloud);
-            }
-            
-            // Create flowers
-            const flowerTypes = [
-                { color: '#FF0000', size: 30 }, // Red rose
-                { color: '#FFC0CB', size: 25 }, // Pink daisy
-                { color: '#FFFF00', size: 28 }, // Yellow day lily
-                { color: '#0000FF', size: 22 }  // Blue flower
-            ];
-            
-            for (let i = 0; i < 20; i++) {
-                const flower = document.createElement('div');
-                flower.className = 'flower';
-                const type = flowerTypes[Math.floor(Math.random() * flowerTypes.length)];
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
                 
-                // Position randomly in garden
-                const left = Math.random() * 95;
-                const bottom = 5 + Math.random() * 25;
-                flower.style.left = `${left}%`;
-                flower.style.bottom = `${bottom}%`;
+                const size = 1 + Math.random() * 2;
+                star.style.width = ${size}px;
+                star.style.height = ${size}px;
                 
-                // Add animation
-                flower.style.animation = `wind ${3 + Math.random() * 5}s infinite ease-in-out`;
-                flower.style.animationDelay = `${Math.random() * 5}s`;
+                star.style.left = ${Math.random() * 100}%;
+                star.style.top = ${Math.random() * 100}%;
                 
-                // Create petals
-                const petals = document.createElement('div');
-                petals.className = 'petals';
-                petals.style.position = 'relative';
-                petals.style.width = `${type.size}px`;
-                petals.style.height = `${type.size}px`;
+                star.style.animationDelay = ${Math.random() * 5}s;
                 
-                // Create individual petals (simple circle for demo)
-                const petalCount = Math.random() > 0.5 ? 5 : 8;
-                for (let p = 0; p < petalCount; p++) {
-                    const petal = document.createElement('div');
-                    petal.style.position = 'absolute';
-                    petal.style.width = `${type.size * 0.8}px`;
-                    petal.style.height = `${type.size * 0.8}px`;
-                    petal.style.backgroundColor = type.color;
-                    petal.style.borderRadius = '50%';
-                    petal.style.top = '50%';
-                    petal.style.left = '50%';
-                    petal.style.transform = `translate(-50%, -50%) rotate(${p * (360 / petalCount)}deg) translateX(${type.size / 3}px)`;
-                    petal.style.transformOrigin = 'center left';
-                    petals.appendChild(petal);
-                }
-                
-                // Create center
-                const center = document.createElement('div');
-                center.style.position = 'absolute';
-                center.style.width = `${type.size / 3}px`;
-                center.style.height = `${type.size / 3}px`;
-                center.style.backgroundColor = '#FFD700';
-                center.style.borderRadius = '50%';
-                center.style.top = '50%';
-                center.style.left = '50%';
-                center.style.transform = 'translate(-50%, -50%)';
-                petals.appendChild(center);
-                
-                // Create stem
-                const stem = document.createElement('div');
-                stem.style.position = 'absolute';
-                stem.style.width = '4px';
-                stem.style.height = `${30 + Math.random() * 40}px`;
-                stem.style.backgroundColor = '#2a7f2a';
-                stem.style.top = '100%';
-                stem.style.left = '50%';
-                stem.style.transform = 'translateX(-50%)';
-                
-                flower.appendChild(petals);
-                flower.appendChild(stem);
-                
-                garden.appendChild(flower);
-            }
-            
-            // Create birthday decorations
-            for (let i = 0; i < 15; i++) {
-                const balloon = document.createElement('div');
-                balloon.className = 'balloon';
-                const colors = ['#FF6B6B', '#4ECDC4', '#FFE66D', '#FF9F1C', '#C7F464'];
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                const size = 20 + Math.random() * 30;
-                balloon.style.width = `${size}px`;
-                balloon.style.height = `${size * 1.2}px`;
-                balloon.style.backgroundColor = color;
-                balloon.style.top = `${Math.random() * 100}%`;
-                balloon.style.left = `${Math.random() * 100}%`;
-                balloon.style.animation = `sway ${4 + Math.random() * 8}s infinite ease-in-out`;
-                balloon.style.animationDelay = `${Math.random() * 5}s`;
-                
-                // Balloon string
-                const string = document.createElement('div');
-                string.className = 'balloon-string';
-                string.style.height = `${50 + Math.random() * 100}px`;
-                string.style.top = `100%`;
-                string.style.left = '50%';
-                string.style.transform = 'translateX(-50%)';
-                
-                balloon.appendChild(string);
-                garden.appendChild(balloon);
+                sky.appendChild(star);
             }
         }
         
-        // Start animation sequence
-        function startAnimation() {
-            const roseContainer = document.getElementById('rose-container');
-            const flyingPetal = document.getElementById('flying-petal');
-            const envelope = document.getElementById('envelope');
-            const letterContent = document.getElementById('letter-content');
+        // Create confetti
+        function createConfetti() {
+            const colors = ['#ff6b6b', '#4ecdc4', '#ffe66d', '#ff9f1c', '#c7f464', '#ff9aa2', '#b5ead7'];
             
-            // Zoom in on rose
-            setTimeout(() => {
-                roseContainer.style.transform = 'translate(-50%, -50%) scale(3)';
-            }, 2000);
-            
-            // Detach petal and fly away
-            setTimeout(() => {
-                // Hide the original rose
-                roseContainer.style.opacity = '0';
-                
-                // Create flying petal
-                flyingPetal.style.opacity = '1';
-                flyingPetal.style.top = '50%';
-                flyingPetal.style.left = '50%';
-                flyingPetal.style.transform = 'translate(-50%, -50%)';
-                flyingPetal.style.animation = 'fadeIn 1s forwards';
-                
-                // Fly petal to top left
-                setTimeout(() => {
-                    flyingPetal.style.transition = 'all 6s ease-in-out';
-                    flyingPetal.style.top = '10%';
-                    flyingPetal.style.left = '10%';
-                    flyingPetal.style.transform = 'translate(-50%, -50%) rotate(720deg) scale(0.5)';
-                }, 500);
-            }, 6000);
-            
-            // Transform petal to envelope
-            setTimeout(() => {
-                flyingPetal.style.opacity = '0';
-                envelope.style.opacity = '1';
-                envelope.style.transform = 'translate(-50%, -50%) scale(1)';
-                envelope.style.transition = 'transform 1s ease-in-out, opacity 1s ease-in-out';
-                
-                // Open envelope
-                setTimeout(() => {
-                    document.querySelector('.envelope-top').style.transform = 'rotateX(180deg)';
-                    document.querySelector('.envelope-top').style.transition = 'transform 1.5s ease-in-out';
-                    
-                    // Show letter content
-                    setTimeout(() => {
-                        letterContent.style.opacity = '1';
-                        letterContent.style.transform = 'translateY(0)';
-                    }, 1000);
-                }, 1000);
-            }, 12000);
-        }
-        
-        // Music player functionality
-        function setupMusicPlayer() {
-            const musicPlayer = document.getElementById('music-player');
-            const backgroundMusic = document.getElementById('background-music');
-            
-            let isPlaying = false;
-            
-            musicPlayer.addEventListener('click', () => {
-                if (isPlaying) {
-                    backgroundMusic.pause();
-                    musicPlayer.innerHTML = '<i class="fas fa-play"></i>';
-                } else {
-                    backgroundMusic.play().catch(e => {
-                        console.log("Audio play failed:", e);
-                        alert("Audio playback failed. Please interact with the page first.");
-                    });
-                    musicPlayer.innerHTML = '<i class="fas fa-pause"></i>';
-                }
-                isPlaying = !isPlaying;
-            });
-            
-            // Autoplay with user interaction
-            document.addEventListener('click', () => {
-                if (!isPlaying) {
-                    backgroundMusic.play().catch(e => console.log("Autoplay prevented"));
-                    musicPlayer.innerHTML = '<i class="fas fa-pause"></i>';
-                    isPlaying = true;
-                }
-            }, { once: true });
-        }
-        
-        // Initialize everything
-        window.onload = function() {
-            createGarden();
-            startAnimation();
-            setupMusicPlayer();
-            
-            // Create confetti
             for (let i = 0; i < 150; i++) {
                 const confetti = document.createElement('div');
                 confetti.className = 'confetti';
-                const colors = ['#FF6B6B', '#4ECDC4', '#FFE66D', '#FF9F1C', '#C7F464', '#FF9AA2', '#B5EAD7', '#FFDAC1'];
                 confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.left = `${Math.random() * 100}%`;
-                confetti.style.top = `${-10 - Math.random() * 20}%`;
+                confetti.style.left = ${Math.random() * 100}%;
+                confetti.style.top = ${-10 - Math.random() * 20}%;
                 confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
-                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
-                confetti.style.animation = `fadeIn 0.5s forwards ${Math.random() * 5}s, drop 15s linear ${Math.random() * 5}s infinite`;
-                
-                // Create drop animation for each confetti
-                const style = document.createElement('style');
-                style.textContent = `
-                    @keyframes drop {
-                        0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-                        100% { transform: translateY(110vh) rotate(${Math.random() * 720}deg); opacity: 0; }
-                    }
-                `;
-                document.head.appendChild(style);
+                confetti.style.animation = fadeIn 0.5s forwards ${Math.random() * 5}s, drop ${10 + Math.random() * 10}s linear ${Math.random() * 5}s infinite;
                 
                 document.body.appendChild(confetti);
             }
+        }
+        
+        // Animation sequence
+        function startAnimation() {
+            const roseContainer = document.getElementById('rose-container');
+            const focusedPetal = document.getElementById('focused-petal');
+            const envelope = document.getElementById('envelope');
+            const letterContent = document.getElementById('letter-content');
+            const petals = document.querySelectorAll('.petal');
+            
+            // Initial zoom to the rose
+            setTimeout(() => {
+                roseContainer.style.transform = 'scale(1.5)';
+                roseContainer.style.transition = 'transform 4s ease-in-out';
+                
+                // Focus on a specific petal
+                setTimeout(() => {
+                    // Position the focused petal at the same location as petal-1
+                    const roseRect = roseContainer.getBoundingClientRect();
+                    const petal1 = petals[0];
+                    const petalRect = petal1.getBoundingClientRect();
+                    
+                    focusedPetal.style.opacity = '1';
+                    focusedPetal.style.left = ${petalRect.left + petalRect.width/2}px;
+                    focusedPetal.style.top = ${petalRect.top + petalRect.height/2}px;
+                    
+                    // Hide the original petal
+                    petal1.style.opacity = '0';
+                    
+                    // Animate the petal floating
+                    setTimeout(() => {
+                        focusedPetal.style.setProperty('--startX', '0px');
+                        focusedPetal.style.setProperty('--startY', '0px');
+                        focusedPetal.style.setProperty('--endX', '0px');
+                        focusedPetal.style.setProperty('--endY', '0px');
+                        focusedPetal.style.animation = 'petal-float 8s ease-in-out forwards';
+                        
+                        // Transform petal to envelope
+                        setTimeout(() => {
+                            focusedPetal.style.opacity = '0';
+                            envelope.style.opacity = '1';
+                            envelope.style.transform = 'translate(-50%, -50%) scale(1)';
+                            envelope.style.transition = 'transform 2s ease-in-out, opacity 2s ease-in-out';
+                            
+                            // Show letter content
+                            setTimeout(() => {
+                                letterContent.style.opacity = '1';
+                                letterContent.style.transform = 'translateY(0)';
+                                
+                                // Create confetti
+                                createConfetti();
+                            }, 1500);
+                        }, 8000);
+                    }, 500);
+                }, 4000);
+            }, 1000);
+        }
+        
+        // Initialize
+        window.onload = function() {
+            createStars();
+            startAnimation();
+            
+            // Autoplay music with user interaction
+            document.addEventListener('click', function initAudio() {
+                const bgMusic = document.getElementById('background-music');
+                bgMusic.play().catch(e => console.log("Audio play failed:", e));
+                document.removeEventListener('click', initAudio);
+            });
         };
     </script>
 </body>
